@@ -20,6 +20,8 @@ const broker = new ServiceBroker({
     },
 });
 
+// This service does the same as CheckSurroundings() in version 1. It simply checks whether the cells 
+// around the target cell are alive by calling isAlive on another node. It then returns the number of live cells.
 broker.createService({
     name: "Neighbours",
     actions: {
