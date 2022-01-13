@@ -6,8 +6,9 @@ The goal of this research was to show whether the Moleculer Framework can actual
 
 It is recommended to read the results document before consulting this repository.
 
-Versions:
-1 - Single-threaded Game of Life.
-2 - Game of Life using the Moleculer Microservices Framework.
-3 - Version 2 but with slight adjustments so that we can check the execution times.
-4 - Version 1 but with slight adjustments so that we can check the execution times.
+Versions / Branches:
+* Main - Contains the concept implementation which was mentioned in the results document.
+* 1 - Single-threaded Game of Life.
+* 2 - Game of Life using the Moleculer Microservices Framework.
+* 3 - Version 2 but with slight adjustments so that we can check the execution times.
+* 4 - Version 1 but with slight adjustments so that we can check the execution times.
