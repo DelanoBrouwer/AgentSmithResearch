@@ -22,6 +22,7 @@ class GameWorld {
   }
 
   createGrid() {
+    // Create cells and add them to the grid.
     for (let x = 0; x < GameWorld.numColumns; x++) {
       this.grid.push([]);
       for (let y = 0; y < GameWorld.numRows; y++) {
@@ -30,6 +31,7 @@ class GameWorld {
     }
   }
 
+  // Check if a certain cell exists at the given coordinates and if it is alive.
   isAlive(x, y) {
     if (x < 0 || x >= GameWorld.numColumns || y < 0 || y >= GameWorld.numRows) {
       return 0;
@@ -38,6 +40,7 @@ class GameWorld {
     return this.grid[x][y].alive ? 1 : 0;
   }
 
+  // Check all cells on the grid and update them.
   async checkSurrounding() {
     // Loop over all cells
     let copy = this.grid;
@@ -68,7 +71,7 @@ class GameWorld {
       }
     }
 
-    // Apply the new state to the cells
+    // Apply the new state to the grid.
     this.grid = copy;
   }
 
@@ -78,6 +81,7 @@ class GameWorld {
     });
   }
 
+  // Main game loop: Create a results string > Clear previous results > Show new results > Update & Repeat.
   async gameLoop() {
     let result = ""
       for (let y = GameWorld.numRows - 1; y >= 0; y--) {
@@ -95,7 +99,6 @@ class GameWorld {
       console.clear();
       console.log(result);
       
-      // Check the surrounding of each cell
       await this.checkSurrounding().then(await this.sleep(1500)).then(this.gameLoop());
     }
   }
