@@ -5,14 +5,15 @@ class Cell {
     this.gridY = gridY;
 
     // Make random cells alive
-    this.alive = Math.random() > 0.920;
+    this.alive = Math.random() > 0.8;
   }
 }
 
 class GameWorld {
 
-  static numColumns = 500;
-  static numRows = 100;
+  // You can adjust these values to create a larger grid.
+  static numColumns = 40;
+  static numRows = 20;
 
   constructor() {
     this.grid = [];
@@ -22,6 +23,7 @@ class GameWorld {
   }
 
   createGrid() {
+    // Create cells and add them to the grid.
     for (let x = 0; x < GameWorld.numColumns; x++) {
       this.grid.push([]);
       for (let y = 0; y < GameWorld.numRows; y++) {
@@ -30,6 +32,7 @@ class GameWorld {
     }
   }
 
+  // Check if a certain cell exists at the given coordinates and if it is alive.
   isAlive(x, y) {
     if (x < 0 || x >= GameWorld.numColumns || y < 0 || y >= GameWorld.numRows) {
       return 0;
@@ -38,6 +41,7 @@ class GameWorld {
     return this.grid[x][y].alive ? 1 : 0;
   }
 
+  // Check all cells on the grid and update them.
   async checkSurrounding() {
     // Loop over all cells
     let copy = this.grid;
@@ -68,7 +72,7 @@ class GameWorld {
       }
     }
 
-    // Apply the new state to the cells
+    // Apply the new state to the grid.
     this.grid = copy;
   }
 
