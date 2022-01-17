@@ -5,14 +5,15 @@ class Cell {
     this.gridY = gridY;
 
     // Make random cells alive
-    this.alive = Math.random() > 0.920;
+    this.alive = Math.random() > 0.8;
   }
 }
 
 class GameWorld {
 
-  static numColumns = 500;
-  static numRows = 100;
+  // You can adjust these values to create a larger grid.
+  static numColumns = 40;
+  static numRows = 20;
 
   constructor() {
     this.grid = [];
@@ -90,16 +91,17 @@ class GameWorld {
             result = result + "█";
           }
           else if (this.grid[x][y].alive == false){
-            result = result + "┼";
+            result = result + " ";
           }
           else {result = result + "O"}
+          
         }
         result = result + "\n";
       }
       console.clear();
       console.log(result);
       
-      await this.checkSurrounding().then(await this.sleep(1500)).then(this.gameLoop());
+      await this.checkSurrounding().then(await this.sleep(1000)).then(this.gameLoop());
     }
   }
 
