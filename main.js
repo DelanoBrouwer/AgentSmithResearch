@@ -25,11 +25,11 @@ broker.start().then(() => {
 
     class Cell {
       constructor(gridX, gridY) {
-        // Store the position of this cell in the grid
+        // Store the position of this cell in the grid.
         this.gridX = gridX;
         this.gridY = gridY;
 
-        // Make random cells alive
+        // Make random cells alive.
         this.alive = Math.random() > 0.5;
       }
 
@@ -37,6 +37,7 @@ broker.start().then(() => {
 
     class GameWorld {
 
+      // You can increase these values for a larger grid.
       static numColumns = 40;
       static numRows = 20;
 
@@ -46,6 +47,7 @@ broker.start().then(() => {
         this.createGrid().then(() => { this.gameLoop() });
       }
 
+      // Creates a cell. The use of the Echo action is simply to display data transfers.
       async createCell(x, y) {
         let echoX = await broker.call("Cell.Echo", { message: x });
         let echoY = await broker.call("Cell.Echo", { message: y });
@@ -53,6 +55,7 @@ broker.start().then(() => {
         return new Cell(echoX, echoY);
       }
 
+      // Creates the grid by looping through the previously specified amount of Columns and Rows.
       async createGrid() {
         for (let x = 0; x < GameWorld.numColumns; x++) {
           this.grid.push([]);
@@ -63,12 +66,12 @@ broker.start().then(() => {
       }
 
       async checkSurrounding() {
-        // Loop over all cells
+        // Loop over all cells.
         let copy = this.grid;
         for (let x = 0; x < GameWorld.numColumns; x++) {
           for (let y = 0; y < GameWorld.numRows; y++) {
 
-            // Count the nearby population
+            // Count the nearby population.
             broker.call("Neighbours.GetNumAlive", { x: x, y: y, numColumns: this.numColumns, numRows: this.numRows, grid: this.grid }).then((numAlive) => {
 
               if (numAlive == 2) {
@@ -85,7 +88,7 @@ broker.start().then(() => {
           }
         }
 
-        // Apply the new state to the cells
+        // Apply the new state to the cells.
         this.grid = copy;
       }
 
@@ -116,7 +119,8 @@ broker.start().then(() => {
         await this.checkSurrounding().then(() => {
           let elapsed = new Date().getTime() - start;
           console.log(elapsed);
-          console.log("End!")}).then(await this.sleep(1000)).then(this.gameLoop());
+          console.log("End!")
+        }).then(await this.sleep(1000)).then(this.gameLoop());
       }
     }
 
