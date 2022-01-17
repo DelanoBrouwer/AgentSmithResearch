@@ -2,6 +2,7 @@ const { ServiceBroker } = require("moleculer");
 
 const transporter = process.env.TRANSPORTER || "TCP";
 
+// Creating the servicebroker.
 const broker = new ServiceBroker({
     namespace: process.env.NAMESPACE || "nodes",
     nodeID: process.env.nodeID || "node-" + process.pid,
